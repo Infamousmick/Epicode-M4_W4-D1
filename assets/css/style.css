@@ -1,0 +1,16 @@
+/*-- Header --*/
+
+/*-- Navbar --*/
+
+
+header nav.navbar img {
+    height: 50px;
+    width: 50px;
+}
+
+/*-- Main --*/
+/*-- SwiperJS --*/
+.swiper-button-prev, .swiper-button-next {
+    color: black;
+
+}

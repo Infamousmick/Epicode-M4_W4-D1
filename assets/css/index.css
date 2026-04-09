@@ -1,0 +1,28 @@
+/* header */
+/* header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+header nav {
+    background-color: transparent !important;
+} */
+
+/* Hero */
+section#hero div.bgImage {
+    background-image: url("../img/hero.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+}
+
+/* Main */
+
+.addToCart {
+    background-color: #0E5640;
+    color: white
+}
