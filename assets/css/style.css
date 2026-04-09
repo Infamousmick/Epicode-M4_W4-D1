@@ -1,3 +1,9 @@
+/*-- Root --*/
+:root {
+    --swiper-navigation-color: black;
+    --swiper-navigation-size: 30px;
+}
+
 /*-- Header --*/
 
 /*-- Navbar --*/
@@ -11,6 +17,18 @@ header nav.navbar img {
 /*-- Main --*/
 /*-- SwiperJS --*/
 .swiper-button-prev, .swiper-button-next {
-    color: black;
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
+
+}
+
+/*-- Cards --*/
+
+i.preferite:hover {
+    color: red
 }

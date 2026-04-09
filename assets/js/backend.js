@@ -195,7 +195,7 @@ addProductBtn.addEventListener("click", (e) => {
   const newProduct = extractFormData("addProduct");
   postData(newProduct).then(() => {
     search();
-    showAlert("Elemento aggiunto");
+    showAlert("Elemento aggiunto", "text-bg-primary");
     document.getElementById("addProduct").reset();
   });
 });
@@ -214,7 +214,7 @@ tableBody.addEventListener("click", async (e) => {
   } else {
     deleteData(currentEditId).then(() => {
       search();
-      showAlert("Elemento cancellato");
+      showAlert("Elemento cancellato", "text-bg-danger");
     });
   }
 });
@@ -234,24 +234,23 @@ updateProductBtn.addEventListener("click", (e) => {
 
     if (modalInstance) {
       modalInstance.hide();
-      showAlert("Elemento modificato");
+      showAlert("Elemento modificato", "text-bg-success");
     }
   });
 });
 
-const showAlert = (message, type = "success") => {
-  const alertContainer = document.querySelector("div.alert-container");
+const showAlert = (message, color) => {
+  const alertContainer = document.querySelector(".toast-container");
   alertContainer.innerHTML = `
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast align-items-center text-bg-primary border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body fw-medium">
-          ${message}
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  <div id="liveToast" class="toast align-items-center ${color} border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body fw-medium">
+        ${message}
       </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-  </div>`;
+  </div>
+`;
 
   const toastElement = document.getElementById("liveToast");
 

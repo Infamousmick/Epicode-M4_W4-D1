@@ -63,7 +63,7 @@ const createCards = (items) => {
         <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
           <div class="position-absolute top-0 end-0 p-3 z-1">
             <button class="btn btn-light rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-              <i class="fa-regular fa-heart text-secondary"></i>
+              <i class="fa-regular fa-heart preferite"></i>
             </button>
           </div>
           <img src="${imageUrl}" class="card-img-top object-fit-cover" alt="${name}" style="height:250px">
