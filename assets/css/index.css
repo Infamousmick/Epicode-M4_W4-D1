@@ -1,16 +1,3 @@
-/* header */
-/* header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-header nav {
-    background-color: transparent !important;
-} */
-
 /* Hero */
 section#hero div.bgImage {
     background-image: url("../img/hero.png");
@@ -21,6 +8,17 @@ section#hero div.bgImage {
 }
 
 /* Main */
+/*-- SwiperJS --*/
+.swiper-button-prev, .swiper-button-next {
+    background-color: white;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+
+}
 
 .addToCart {
     background-color: #0E5640;

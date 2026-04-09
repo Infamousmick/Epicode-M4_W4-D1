@@ -15,20 +15,12 @@ header nav.navbar img {
 }
 
 /*-- Main --*/
-/*-- SwiperJS --*/
-.swiper-button-prev, .swiper-button-next {
-    background-color: white;
-    width: 60px;
-    height: 60px;
-    padding: 20px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-
-}
 
 /*-- Cards --*/
+.card {
+    cursor: pointer;
+}
 
-i.preferite:hover {
+i.preferite:hover, i.preferite.added {
     color: red
 }

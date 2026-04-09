@@ -1,4 +1,7 @@
-const url = "https://striveschool-api.herokuapp.com/api/product/";
+const params = new URLSearchParams(window.location.search);
+const query = params.get("q");
+const url = `https://striveschool-api.herokuapp.com/api/product/${query}`;
+
 let myToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTUzNmJhMGYxMjAwMTUyZTc3NmQiLCJpYXQiOjE3NzU1ODg2NjIsImV4cCI6MTc3Njc5ODI2Mn0.fmeLD3Mz5Mgg63Dp-R5seBcz2MnWrCdnRbRZyz4YUi8";
 
@@ -21,45 +24,17 @@ const getData = async () => {
 const search = async () => {
   const data = await getData();
   console.log(data);
-  const cards = createCards(data);
-  injectCards(cards);
-  initSwiper();
+  const card = createCards(data);
+  injectCards(card);
   togglePreferite();
 };
 
 search();
 
-const initSwiper = () => {
-  // init Swiper:
-  const swiper = new Swiper(".swiper", {
-    slidesPerView: 2,
-    spaceBetween: 15,
-    allowTouchMove: true,
+const createCards = (item) => {
+  const { name, description, brand, imageUrl, price, _id } = item;
+  return `
 
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-
-    breakpoints: {
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        allowTouchMove: true,
-      },
-      992: {
-        slidesPerView: 4,
-        spaceBetween: 25,
-        allowTouchMove: false,
-      },
-    },
-  });
-};
-const createCards = (items) => {
-  return items.reduce((acc, curr, index) => {
-    const { name, description, brand, imageUrl, price, _id } = curr;
-    acc += `
-    <!-- Slides -->
     <div class="swiper-slide">
         <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
           <div class="position-absolute top-0 end-0 p-3 z-1">
@@ -68,7 +43,7 @@ const createCards = (items) => {
             </button>
           </div>
           <a href="./product.html?q=${_id}">
-            <img src="${imageUrl}" class="card-img-top object-fit-cover" alt="${name}" style="height:250px">
+            <img src="${imageUrl}" class="card-img-top object-fit-cover" alt="${name}" style="height:350px">
           </a>
           <div class="card-body d-flex flex-column">
             <a href="./product.html?q=${_id}" class="text-decoration-none">
@@ -86,23 +61,19 @@ const createCards = (items) => {
             </div>
         </div>
     </div>`;
-    return acc;
-  }, "");
 };
 
-const injectCards = (cards) => {
-  const container = document.querySelector("main .swiper .swiper-wrapper");
-  container.innerHTML = cards;
+const injectCards = (card) => {
+  const container = document.querySelector("main section#product div");
+  container.innerHTML = card;
 };
 
 const togglePreferite = () => {
-  const preferiteList = document.querySelectorAll(".preferite");
+  const preferiteItem = document.querySelector(".preferite");
 
-  preferiteList.forEach((preferite) => {
-    preferite.addEventListener("click", () => {
-      preferite.classList.toggle("added");
-      preferite.classList.toggle("fa-solid");
-      preferite.classList.toggle("fa-regular");
-    });
+  preferiteItem.addEventListener("click", () => {
+    preferiteItem.classList.toggle("added");
+    preferiteItem.classList.toggle("fa-solid");
+    preferiteItem.classList.toggle("fa-regular");
   });
 };
