@@ -2,6 +2,12 @@ const url = "https://striveschool-api.herokuapp.com/api/product/";
 let myToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTUzNmJhMGYxMjAwMTUyZTc3NmQiLCJpYXQiOjE3NzU1ODg2NjIsImV4cCI6MTc3Njc5ODI2Mn0.fmeLD3Mz5Mgg63Dp-R5seBcz2MnWrCdnRbRZyz4YUi8";
 
+const showSpinner = (state) => {
+  const spinner = document.querySelector("main #products .spinner");
+  state ? spinner.classList.remove("d-none") : spinner.classList.add("d-none");
+};
+
+showSpinner(true);
 const getData = async () => {
   try {
     const response = await fetch(url, {
@@ -20,12 +26,16 @@ const getData = async () => {
 
 const search = async () => {
   const data = await getData();
-  console.log(data);
-  const cards = createCards(data);
-  injectCards(cards);
-  initSwiper();
-  togglePreferite();
-  toggleCartList();
+
+  setTimeout(() => {
+    const cards = createCards(data);
+    injectCards(cards);
+    initSwiper();
+    togglePreferite();
+    toggleCartList();
+
+    showSpinner(false);
+  }, 2000);
 };
 
 search();
@@ -61,7 +71,7 @@ const createCards = (items) => {
     const { name, description, brand, imageUrl, price, _id } = curr;
     acc += `
     <!-- Slides -->
-    <div class="swiper-slide">
+    <div class="swiper-slide p-2">
         <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative">
           <div class="position-absolute top-0 end-0 p-3 z-1">
             <button class="btn btn-light rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
@@ -115,12 +125,9 @@ const toggleCartList = () => {
     btn.addEventListener("click", () => {
       let text = btn.querySelector("p");
       let icon = btn.querySelector("i");
-
-      if (text.textContent.includes("Add to cart")) {
-        text.textContent = "Added";
-      } else {
-        text.textContent = "Add to cart";
-      }
+      text.textContent = text.textContent.includes("Add to cart")
+        ? "Added"
+        : "Add to cart";
       icon.classList.toggle("fa-plus");
       icon.classList.toggle("fa-check");
     });

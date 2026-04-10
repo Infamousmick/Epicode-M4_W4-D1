@@ -20,63 +20,69 @@
     <title>E-commerce Prodotto</title>
   </head>
   <body>
-    <header>
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-            <img
-              src="./assets/img/logo.png"
-              class="rounded-circle"
-              alt="logo"
-            />
-            E-commerce</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="./index.html"
-                  >Home</a
+    <header class="py-4">
+      <div class="container d-flex justify-content-center">
+        <nav
+          class="navbar navbar-expand-lg bg-dark rounded-5 shadow-lg px-3 py-2 w-100"
+          style="max-width: 800px"
+        >
+          <div class="container-fluid">
+            <a class="navbar-brand m-0" href="#">
+              <div
+                class="bg-white rounded-circle d-flex align-items-center justify-content-center overflow-hidden"
+                style="width: 45px; height: 45px"
+              >
+                <img
+                  src="./assets/img/logo.png"
+                  alt="logo"
+                  class="w-100 h-100 object-fit-cover"
+                />
+              </div>
+            </a>
+
+            <button
+              class="navbar-toggler border-0 shadow-none bg-light"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#floatingNav"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="floatingNav">
+              <ul
+                class="navbar-nav mx-auto mb-3 mb-lg-0 gap-2 gap-lg-3 mt-3 mt-lg-0"
+              >
+                <li class="nav-item">
+                  <a class="nav-link text-white fw-medium" href="./index.html"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link text-white fw-medium"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    >Backend</a
+                  >
+                </li>
+              </ul>
+
+              <div
+                class="d-flex align-items-center justify-content-center mt-2 mt-lg-0"
+              >
+                <button
+                  class="btn btn-light rounded-pill px-4 fw-bold d-flex align-items-center gap-2"
                 >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#loginModal"
-                  >Backend</a
-                >
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  Cart
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
 
     <!-- Alert -->
@@ -136,12 +142,14 @@
 
     <!-- Main -->
     <main>
-      <section
-        class="container-md mb-4 d-flex flex-column align-items-center gap-2"
-        id="product"
-      >
-        <h2>Prodotto</h2>
-        <div></div>
+      <section class="container-md py-5" id="product">
+        <!-- Spinner -->
+        <div class="spinner d-none">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div id="productContainer"></div>
       </section>
     </main>
 

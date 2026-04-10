@@ -4,7 +4,6 @@ section#hero div.bgImage {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    /* background-attachment: fixed; */
 }
 
 /* Main */
@@ -32,4 +31,21 @@ section#hero div.bgImage {
 .addToCart {
     background-color: #0E5640;
     color: white
+}
+
+@keyframes scale-in-out {
+    from {
+        transform: scale(1)
+    }
+
+    to {
+        transform: scale(1.03);
+    }
+
+}
+
+div.swiper .card:hover {
+    transform-origin: top center;
+    animation: scale-in-out 0.3s infinite alternate;
+
 }
