@@ -27,6 +27,7 @@ const search = async () => {
   const card = createCards(data);
   injectCards(card);
   togglePreferite();
+  toggleCartList();
 };
 
 search();
@@ -53,10 +54,10 @@ const createCards = (item) => {
             </a> 
               <div class="mt-auto d-flex justify-content-between align-items-center pt-3">
                 <span class="fs-5 fw-bold">${price}€</span>
-                <a href="#" class="btn rounded-pill btn-sm px-3 addToCart d-flex align-items-center gap-2">
+                <button type="button" href="#" class="btn rounded-pill btn-sm px-3 addToCart d-flex align-items-center gap-2">
                   <i class="fa-solid fa-plus"></i>  
                   <p class="mb-0 d-none d-lg-block">Add to cart</p> 
-                </a>
+                </button>
               </div>
             </div>
         </div>
@@ -75,5 +76,24 @@ const togglePreferite = () => {
     preferiteItem.classList.toggle("added");
     preferiteItem.classList.toggle("fa-solid");
     preferiteItem.classList.toggle("fa-regular");
+  });
+};
+
+const toggleCartList = () => {
+  const addToCartList = document.querySelectorAll("button.addToCart");
+
+  addToCartList.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      let text = btn.querySelector("p");
+      let icon = btn.querySelector("i");
+
+      if (text.textContent.includes("Add to cart")) {
+        text.textContent = "Added";
+      } else {
+        text.textContent = "Add to cart";
+      }
+      icon.classList.toggle("fa-plus");
+      icon.classList.toggle("fa-check");
+    });
   });
 };

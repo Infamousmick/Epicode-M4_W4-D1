@@ -8,6 +8,15 @@ section#hero div.bgImage {
 }
 
 /* Main */
+.addToCart,
+.addToCart:hover,
+.addToCart:focus,
+.addToCart:active {
+    background-color: #0E5640 !important;
+    color: white !important;
+    border: none;
+}
+
 /*-- SwiperJS --*/
 .swiper-button-prev, .swiper-button-next {
     background-color: white;
