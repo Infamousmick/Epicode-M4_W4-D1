@@ -188,55 +188,69 @@ const extractFormData = (formId) => {
   };
 };
 
-const addProductBtn = document.querySelector("form#addProduct button.add");
+let currentEditId;
+const formElement = document.getElementById("updateProduct");
+const modalTitle = document.getElementById("updateItemLabel");
+const submitBtn = document.querySelector("#mainSubmitBtn");
 
-addProductBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  const newProduct = extractFormData("addProduct");
-  postData(newProduct).then(() => {
-    search();
-    showAlert("Elemento aggiunto", "text-bg-primary");
-    document.getElementById("addProduct").reset();
-  });
+const closeModal = () => {
+  const modalNode = document.getElementById("updateItem");
+  const modalInstance = bootstrap.Modal.getInstance(modalNode);
+  if (modalInstance) {
+    modalInstance.hide();
+  }
+};
+
+const addProductBtn = document.querySelector("button.addProduct");
+addProductBtn.addEventListener("click", () => {
+  currentEditId = null;
+  formElement.reset();
+
+  modalTitle.innerText = "Aggiungi Nuovo Prodotto";
+  submitBtn.innerText = "Salva Prodotto";
+  submitBtn.className = "btn btn-success";
 });
 
-let currentEditId;
 const tableBody = document.querySelector("table.table tbody");
 tableBody.addEventListener("click", async (e) => {
   const btn = e.target.closest("button");
   if (!btn) return;
 
-  currentEditId = btn.getAttribute("data-id");
+  const targetId = btn.getAttribute("data-id");
 
   if (btn.classList.contains("edit-btn")) {
+    currentEditId = targetId;
+    modalTitle.innerText = "Modifica Elemento";
+    submitBtn.innerText = "Salve modifiche";
+    submitBtn.className = "btn btn-primary";
+
     const data = await getsingleData(currentEditId);
     updateModal(data, currentEditId);
-  } else {
-    deleteData(currentEditId).then(() => {
+  } else if (btn.classList.contains("delete-btn")) {
+    deleteData(targetId).then(() => {
       search();
       showAlert("Elemento cancellato", "text-bg-danger");
     });
   }
 });
 
-const updateProductBtn = document.querySelector(
-  "form#updateProduct button.update",
-);
-
-updateProductBtn.addEventListener("click", (e) => {
+formElement.addEventListener("submit", (e) => {
   e.preventDefault();
-  const updatedProduct = extractFormData("updateProduct");
-  updateData(updatedProduct, currentEditId).then(() => {
-    search();
-    const modalNode = document.getElementById("updateItem");
+  const productData = extractFormData("updateProduct");
 
-    const modalInstance = bootstrap.Modal.getInstance(modalNode);
-
-    if (modalInstance) {
-      modalInstance.hide();
-      showAlert("Elemento modificato", "text-bg-success");
-    }
-  });
+  if (currentEditId) {
+    updateData(productData, currentEditId).then(() => {
+      search();
+      closeModal();
+      showAlert("Elemento modificato con successo", "text-bg-success");
+    });
+  } else {
+    postData(productData).then(() => {
+      search();
+      closeModal();
+      showAlert("Nuovo elemento aggiunto!", "text-bg-success");
+    });
+  }
 });
 
 const showAlert = (message, color) => {
@@ -260,7 +274,6 @@ const showAlert = (message, color) => {
 
 const updateModal = (data, id) => {
   const { name, description, brand, imageUrl, price } = data;
-  console.log(data);
 
   const nameInput = document.querySelector("form#updateProduct input#name");
   nameInput.value = name;
@@ -306,13 +319,11 @@ const createTableRow = (products) => {
 `;
     return acc;
   }, "");
-
-  console.log(products);
 };
 
 const search = async () => {
   const data = await getData();
-  createTableRow(await data);
+  createTableRow(data);
 };
 
 search();
