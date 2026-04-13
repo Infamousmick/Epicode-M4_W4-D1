@@ -1,0 +1,27 @@
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+}
+
+.brand-text {
+    letter-spacing: 1px;
+}
+
+
+.description-text {
+    max-width: 250px;
+}
+
+
+.shrink-0 {
+    flex-shrink: 0;
+}

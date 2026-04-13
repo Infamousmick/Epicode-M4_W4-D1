@@ -1,3 +1,9 @@
+/*-- Root --*/
+:root {
+    --swiper-navigation-color: black;
+    --swiper-navigation-size: 30px;
+}
+
 /* Hero */
 section#hero div.bgImage {
     background-image: url("../img/hero.png");
@@ -14,6 +20,16 @@ section#hero div.bgImage {
     background-color: #0E5640 !important;
     color: white !important;
     border: none;
+}
+
+
+/*-- Cards --*/
+.card {
+    cursor: pointer;
+}
+
+i.preferite:hover, i.preferite.added {
+    color: red
 }
 
 /*-- SwiperJS --*/

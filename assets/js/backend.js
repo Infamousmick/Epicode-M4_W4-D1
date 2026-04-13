@@ -211,8 +211,8 @@ addProductBtn.addEventListener("click", () => {
   submitBtn.className = "btn btn-success";
 });
 
-const tableBody = document.querySelector("table.table tbody");
-tableBody.addEventListener("click", async (e) => {
+const productsContainer = document.querySelector("#products-container");
+productsContainer.addEventListener("click", async (e) => {
   const btn = e.target.closest("button");
   if (!btn) return;
 
@@ -221,7 +221,7 @@ tableBody.addEventListener("click", async (e) => {
   if (btn.classList.contains("edit-btn")) {
     currentEditId = targetId;
     modalTitle.innerText = "Modifica Elemento";
-    submitBtn.innerText = "Salve modifiche";
+    submitBtn.innerText = "Salva modifiche";
     submitBtn.className = "btn btn-primary";
 
     const data = await getsingleData(currentEditId);
@@ -295,27 +295,35 @@ const updateModal = (data, id) => {
   priceInput.value = parseFloat(price);
 };
 
-const createTableRow = (products) => {
-  tableBody.innerHTML = "";
-  // Table content
+const createProducts = (products) => {
+  productsContainer.innerHTML = "";
+  // ProductsContainer
 
-  tableBody.innerHTML = products.reduce((acc, curr, index) => {
+  productsContainer.innerHTML = products.reduce((acc, curr, index) => {
     const { name, description, brand, imageUrl, price, _id } = curr;
     acc += `
+<div class="card shadow-sm border-0 product-card">
+  <div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+    
+    <div class="d-flex align-items-center gap-3 w-100">
+      <img src="${imageUrl}" alt="${name}" class="rounded object-fit-cover shadow-sm product-image" onerror="this.src='https://placehold.co/300x200'">
+      <div class="overflow-hidden">
+        <h5 class="mb-1 text-truncate">${name} <span class="badge text-bg-success ms-2">${price}€</span></h5>
+        <p class="text-muted small mb-0 text-uppercase brand-text">${brand}</p>
+        <p class="text-secondary small mb-0 text-truncate description-text">${description}</p>
+      </div>
+    </div>
 
-    <tr>
-      <th scope="row">${index}</th>
-      <td>${name}</td>
-      <td>${description}</td>
-      <td>${brand}</td>
-      <td><a href="${imageUrl}">Image</a></td>
-      <td>${price}</td>
-      <td class="d-flex gap-2">
-        <button class="btn btn-warning edit-btn"  data-bs-toggle="modal"
-      data-bs-target="#updateItem" data-id="${_id}">Modifica</button>
-        <button class="btn btn-danger delete-btn" data-id="${_id}">Elimina</button>  
-      </td>
-    </tr>
+    <div class="d-flex gap-2 shrink-0">
+      <button class="btn btn-warning edit-btn px-3 d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#updateItem" data-id="${_id}">
+        <i class="fa-solid fa-pen"></i> <span class="d-none d-md-block">Modifica</span>
+      </button>
+      <button class="btn btn-danger delete-btn px-3 d-flex align-items-center gap-2" data-id="${_id}">
+        <i class="fa-solid fa-trash"></i> <span class="d-none d-md-block">Elimina</span>
+      </button>
+    </div>
+  </div>
+</div>
 `;
     return acc;
   }, "");
@@ -323,7 +331,7 @@ const createTableRow = (products) => {
 
 const search = async () => {
   const data = await getData();
-  createTableRow(data);
+  createProducts(data);
 };
 
 search();
